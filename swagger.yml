@@ -1,0 +1,92 @@
+consumes:
+- application/json
+info:
+  description: Upbound App Metadata microservice
+  title: UpboundAppMetadata
+  version: 0.1.0
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
+paths:
+  /app:
+    get:
+      operationId: "GetApp"
+      parameters:
+        - in: query
+          name: title
+          type: string
+          description: Title of the app
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/AppObject"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/NotFound"
+    post:
+      operationId: "PostApp"
+      parameters:
+        - in: body
+          name: AppMetadata
+          required: true
+          schema:
+            $ref: "#/definitions/AppObject"
+      responses:  
+        200:
+          description: "OK"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/NotFound"          
+
+definitions:
+  NotFound:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    description: "Not Found object"
+  Maintainer:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+  AppObject:
+    type: object
+    properties:
+      title: 
+        type: string
+      version:
+        type: string
+      maintainers:
+        type: array
+        items:
+          $ref: "#/definitions/Maintainer"
+      company:
+        type: string
+      website:
+        type: string
+      source:
+        type: string
+      license:
+        type: string
+      description:      
+        type: string
+    description: "The App Object"
+    required:
+      - title
+      - version
+      - maintainers
+      - company
+      - website
+      - source
+      - license
+      - description
