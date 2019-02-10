@@ -37,42 +37,42 @@ func (o *PostAppOK) WriteResponse(rw http.ResponseWriter, producer runtime.Produ
 	rw.WriteHeader(200)
 }
 
-// PostAppNotFoundCode is the HTTP code returned for type PostAppNotFound
-const PostAppNotFoundCode int = 404
+// PostAppBadRequestCode is the HTTP code returned for type PostAppBadRequest
+const PostAppBadRequestCode int = 400
 
-/*PostAppNotFound Not Found
+/*PostAppBadRequest Bad Request
 
-swagger:response postAppNotFound
+swagger:response postAppBadRequest
 */
-type PostAppNotFound struct {
+type PostAppBadRequest struct {
 
 	/*
 	  In: Body
 	*/
-	Payload *models.NotFound `json:"body,omitempty"`
+	Payload *models.BadRequest `json:"body,omitempty"`
 }
 
-// NewPostAppNotFound creates PostAppNotFound with default headers values
-func NewPostAppNotFound() *PostAppNotFound {
+// NewPostAppBadRequest creates PostAppBadRequest with default headers values
+func NewPostAppBadRequest() *PostAppBadRequest {
 
-	return &PostAppNotFound{}
+	return &PostAppBadRequest{}
 }
 
-// WithPayload adds the payload to the post app not found response
-func (o *PostAppNotFound) WithPayload(payload *models.NotFound) *PostAppNotFound {
+// WithPayload adds the payload to the post app bad request response
+func (o *PostAppBadRequest) WithPayload(payload *models.BadRequest) *PostAppBadRequest {
 	o.Payload = payload
 	return o
 }
 
-// SetPayload sets the payload to the post app not found response
-func (o *PostAppNotFound) SetPayload(payload *models.NotFound) {
+// SetPayload sets the payload to the post app bad request response
+func (o *PostAppBadRequest) SetPayload(payload *models.BadRequest) {
 	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *PostAppNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *PostAppBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(404)
+	rw.WriteHeader(400)
 	if o.Payload != nil {
 		payload := o.Payload
 		if err := producer.Produce(rw, payload); err != nil {

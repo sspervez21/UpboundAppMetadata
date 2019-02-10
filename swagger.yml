@@ -38,10 +38,10 @@ paths:
       responses:  
         200:
           description: "OK"
-        404:
-          description: "Not Found"
+        400:
+          description: "Bad Request"
           schema:
-            $ref: "#/definitions/NotFound"          
+            $ref: "#/definitions/BadRequest"          
 
 definitions:
   NotFound:
@@ -52,6 +52,14 @@ definitions:
       message:
         type: string
     description: "Not Found object"
+  BadRequest:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    description: "Bad Request object"
   Maintainer:
     type: object
     properties:

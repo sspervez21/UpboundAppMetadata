@@ -7,8 +7,6 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 )
 
-var allApps []appMetadata
-
 type maintainer struct {
 	name  string
 	email string
@@ -46,16 +44,16 @@ func makeModelAppObject(app appMetadata) *models.AppObject {
 
 // GetAppMetadata function
 func GetAppMetadata(params operations.GetAppParams) middleware.Responder {
-	for _, element := range allApps {
-		if element.title == *params.Title {
-			return operations.NewGetAppOK().WithPayload(makeModelAppObject(element))
-		}
+	app, ok := retrieveData(*params.Title)
+
+	if !ok {
+		return operations.NewGetAppNotFound().WithPayload(&models.NotFound{
+			Code:    int64(operations.GetAppNotFoundCode),
+			Message: "App with this title does not exist.",
+		})
 	}
 
-	return operations.NewGetAppNotFound().WithPayload(&models.NotFound{
-		Code:    int64(operations.GetAppNotFoundCode),
-		Message: "App with this title does not exist",
-	})
+	return operations.NewGetAppOK().WithPayload(makeModelAppObject(app))
 }
 
 // AddAppMetadata function
@@ -75,7 +73,14 @@ func AddAppMetadata(params operations.PostAppParams) middleware.Responder {
 		app.maintainers = append(app.maintainers, maintainer{name: element.Name, email: element.Email})
 	}
 
-	// TODO: make append more performant
-	allApps = append(allApps, app)
+	ok := storeData(app)
+
+	if !ok {
+		return operations.NewPostAppBadRequest().WithPayload(&models.BadRequest{
+			Code:    int64(operations.PostAppBadRequestCode),
+			Message: "Server could not store the data provided.",
+		})
+	}
+
 	return operations.NewPostAppOK()
 }

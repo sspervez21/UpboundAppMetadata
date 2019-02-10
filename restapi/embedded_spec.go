@@ -76,10 +76,10 @@ func init() {
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "schema": {
-              "$ref": "#/definitions/NotFound"
+              "$ref": "#/definitions/BadRequest"
             }
           }
         }
@@ -126,6 +126,18 @@ func init() {
           "type": "string"
         },
         "website": {
+          "type": "string"
+        }
+      }
+    },
+    "BadRequest": {
+      "description": "Bad Request object",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -214,10 +226,10 @@ func init() {
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Bad Request",
             "schema": {
-              "$ref": "#/definitions/NotFound"
+              "$ref": "#/definitions/BadRequest"
             }
           }
         }
@@ -264,6 +276,18 @@ func init() {
           "type": "string"
         },
         "website": {
+          "type": "string"
+        }
+      }
+    },
+    "BadRequest": {
+      "description": "Bad Request object",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
           "type": "string"
         }
       }
