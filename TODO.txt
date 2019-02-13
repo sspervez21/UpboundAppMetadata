@@ -1,0 +1,9 @@
+- Add functional tests
+- Decouple storage mechanism and titleIndex
+- Add other indices (maintinanerIndex)
+- Add more functionality (Update, Delete)
+- Add more endpoints (GetAllApps)
+- Add datastore_test.go
+- Improve error handling
+- Add user friendly response to POST request
+- Stress tests

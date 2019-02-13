@@ -33,6 +33,7 @@ type AppObject struct {
 
 	// maintainers
 	// Required: true
+	// Min Items: 1
 	Maintainers []*Maintainer `json:"maintainers"`
 
 	// source
@@ -124,6 +125,12 @@ func (m *AppObject) validateLicense(formats strfmt.Registry) error {
 func (m *AppObject) validateMaintainers(formats strfmt.Registry) error {
 
 	if err := validate.Required("maintainers", "body", m.Maintainers); err != nil {
+		return err
+	}
+
+	iMaintainersSize := int64(len(m.Maintainers))
+
+	if err := validate.MinItems("maintainers", "body", iMaintainersSize, 1); err != nil {
 		return err
 	}
 

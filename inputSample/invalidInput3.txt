@@ -1,0 +1,10 @@
+{
+  "title" : "App w/ missing version",
+  "version" : "1.0.1",
+  "maintainers" : [],
+  "company" : "Company Inc.",
+  "website" : "https://website.com",
+  "source" : "https://github.com/company/repo",
+  "license" : "Apache-2.0",
+  "description" : "Some application content, and description"
+}

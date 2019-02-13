@@ -42,7 +42,15 @@ func init() {
             "type": "string",
             "description": "Title of the app",
             "name": "title",
-            "in": "query"
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Version of this app",
+            "name": "version",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -112,6 +120,7 @@ func init() {
         },
         "maintainers": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "$ref": "#/definitions/Maintainer"
           }
@@ -146,7 +155,8 @@ func init() {
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "name": {
           "type": "string"
@@ -192,7 +202,15 @@ func init() {
             "type": "string",
             "description": "Title of the app",
             "name": "title",
-            "in": "query"
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Version of this app",
+            "name": "version",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -262,6 +280,7 @@ func init() {
         },
         "maintainers": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "$ref": "#/definitions/Maintainer"
           }
@@ -296,7 +315,8 @@ func init() {
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "name": {
           "type": "string"

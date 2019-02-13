@@ -13,7 +13,8 @@ import (
 
 // GetAppURL generates an URL for the get app operation
 type GetAppURL struct {
-	Title *string
+	Title   string
+	Version string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -46,12 +47,14 @@ func (o *GetAppURL) Build() (*url.URL, error) {
 
 	qs := make(url.Values)
 
-	var title string
-	if o.Title != nil {
-		title = *o.Title
-	}
+	title := o.Title
 	if title != "" {
 		qs.Set("title", title)
+	}
+
+	version := o.Version
+	if version != "" {
+		qs.Set("version", version)
 	}
 
 	_result.RawQuery = qs.Encode()

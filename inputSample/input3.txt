@@ -1,0 +1,13 @@
+{
+  "title" : "Valid app2",
+  "version" : "1.1.0",
+  "maintainers" : [
+    { "name" : "firstmaintainer app2", "email" : "firstmaintainer@hotmail.com"},
+    { "name" : "secondmaintainer app2", "email" : "secondmaintainer@gmail.com"}
+  ],
+  "company" : "Random Inc.",
+  "website" : "https://website2.com",
+  "source" : "https://github.com/random2/repo",
+  "license" : "Apache-2.0",
+  "description" : "Some application content, and description"
+}

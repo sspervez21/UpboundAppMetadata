@@ -5,11 +5,12 @@ import (
 	"UpboundAppMetadata/restapi/operations"
 
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/strfmt"
 )
 
 type maintainer struct {
 	name  string
-	email string
+	email strfmt.Email
 }
 
 type appMetadata struct {
@@ -44,12 +45,12 @@ func makeModelAppObject(app appMetadata) *models.AppObject {
 
 // GetAppMetadata function
 func GetAppMetadata(params operations.GetAppParams) middleware.Responder {
-	app, ok := retrieveData(*params.Title)
+	app, ok := retrieveData(params.Title, params.Version)
 
 	if !ok {
 		return operations.NewGetAppNotFound().WithPayload(&models.NotFound{
 			Code:    int64(operations.GetAppNotFoundCode),
-			Message: "App with this title does not exist.",
+			Message: "This app does not exist.",
 		})
 	}
 
@@ -78,7 +79,7 @@ func AddAppMetadata(params operations.PostAppParams) middleware.Responder {
 	if !ok {
 		return operations.NewPostAppBadRequest().WithPayload(&models.BadRequest{
 			Code:    int64(operations.PostAppBadRequestCode),
-			Message: "Server could not store the data provided.",
+			Message: "This app already exists on the server.",
 		})
 	}
 

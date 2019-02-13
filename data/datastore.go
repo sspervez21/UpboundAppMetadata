@@ -3,18 +3,24 @@ package data
 var allApps []appMetadata
 
 func storeData(app appMetadata) bool {
+	ok := createIndexEntry(app.title, app.version, app)
+
+	if !ok {
+		return false
+	}
+
 	// TODO: make append more performant
 	allApps = append(allApps, app)
 	return true
 }
 
-func retrieveData(title string) (appMetadata, bool) {
-	for _, element := range allApps {
-		if element.title == title {
-			return element, true
-		}
-	}
+func retrieveData(title string, version string) (appMetadata, bool) {
+	app, ok := retrieveIndexEntry(title, version)
 
 	// not found
-	return appMetadata{}, false
+	if !ok {
+		return appMetadata{}, false
+	}
+
+	return app, true
 }

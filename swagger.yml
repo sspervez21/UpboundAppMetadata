@@ -17,7 +17,13 @@ paths:
         - in: query
           name: title
           type: string
+          required: true
           description: Title of the app
+        - in: query
+          name: version
+          type: string
+          required: true
+          description: Version of this app
       responses:
         200:
           description: "OK"
@@ -67,6 +73,7 @@ definitions:
         type: string
       email:
         type: string
+        format: email
   AppObject:
     type: object
     properties:
@@ -78,6 +85,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Maintainer"
+        minItems: 1
       company:
         type: string
       website:

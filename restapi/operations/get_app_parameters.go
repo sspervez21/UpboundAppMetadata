@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -32,9 +33,15 @@ type GetAppParams struct {
 	HTTPRequest *http.Request `json:"-"`
 
 	/*Title of the app
+	  Required: true
 	  In: query
 	*/
-	Title *string
+	Title string
+	/*Version of this app
+	  Required: true
+	  In: query
+	*/
+	Version string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -53,6 +60,11 @@ func (o *GetAppParams) BindRequest(r *http.Request, route *middleware.MatchedRou
 		res = append(res, err)
 	}
 
+	qVersion, qhkVersion, _ := qs.GetOK("version")
+	if err := o.bindVersion(qVersion, qhkVersion, route.Formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -61,18 +73,42 @@ func (o *GetAppParams) BindRequest(r *http.Request, route *middleware.MatchedRou
 
 // bindTitle binds and validates parameter Title from query.
 func (o *GetAppParams) bindTitle(rawData []string, hasKey bool, formats strfmt.Registry) error {
+	if !hasKey {
+		return errors.Required("title", "query")
+	}
 	var raw string
 	if len(rawData) > 0 {
 		raw = rawData[len(rawData)-1]
 	}
 
-	// Required: false
+	// Required: true
 	// AllowEmptyValue: false
-	if raw == "" { // empty values pass all other validations
-		return nil
+	if err := validate.RequiredString("title", "query", raw); err != nil {
+		return err
 	}
 
-	o.Title = &raw
+	o.Title = raw
+
+	return nil
+}
+
+// bindVersion binds and validates parameter Version from query.
+func (o *GetAppParams) bindVersion(rawData []string, hasKey bool, formats strfmt.Registry) error {
+	if !hasKey {
+		return errors.Required("version", "query")
+	}
+	var raw string
+	if len(rawData) > 0 {
+		raw = rawData[len(rawData)-1]
+	}
+
+	// Required: true
+	// AllowEmptyValue: false
+	if err := validate.RequiredString("version", "query", raw); err != nil {
+		return err
+	}
+
+	o.Version = raw
 
 	return nil
 }
