@@ -1,3 +1,4 @@
+- Add Makefile
 - Add functional tests
 - Decouple storage mechanism and titleIndex
 - Add other indices (maintinanerIndex)
